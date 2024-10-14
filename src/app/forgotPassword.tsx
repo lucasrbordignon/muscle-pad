@@ -3,13 +3,16 @@ import { Feather } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { Link } from 'expo-router';
 import React from 'react';
-import { Dimensions, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Image, Keyboard, KeyboardAvoidingView, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 
 const statusBarHeight = Constants.statusBarHeight
- const paddingTop = Dimensions.get('window').height / 8
+const paddingTop = Dimensions.get('window').height / 24
 
 export default function forgotPassword() {
   return (
+    <KeyboardAvoidingView className='flex-1' behavior="padding">
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+
     <ScrollView
       className='bg-zinc-100 w-full px-12' 
       style={{ marginTop: statusBarHeight + 8, paddingTop: paddingTop }}
@@ -19,7 +22,7 @@ export default function forgotPassword() {
           <Image source={require('../assets/logo.png')} className='flex-1' resizeMode='center'/>          
         </View> 
 
-        <Text className="flex-1 text-4xl font-bold text-zinc-800 m-8 w-full">ESQUECEU A SENHA?</Text>
+        <Text className="flex-1 text-center text-3xl font-bold text-zinc-800 w-full">ESQUECEU A SENHA?</Text>
       </View>
       
       <Text className='flex-1 text-center text-zinc-600 font-semibold my-2'>Digite seu email abaixo e enviaremos uma nova senha</Text>
@@ -49,5 +52,8 @@ export default function forgotPassword() {
         </TouchableOpacity>        
       </View>
     </ScrollView>
+    </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+    
   );
 }
