@@ -13,7 +13,7 @@ interface CustomInputProps extends TextInputProps {
 export const Input: React.FC<CustomInputProps> = ({...CustomInputProps}) => {
   return (
     <View className='w-full flex mt-4 gap-2'>
-      { CustomInputProps.label && <Text className="text-2xl font-bold text-zinc-800">{CustomInputProps.label}</Text>}
+      {CustomInputProps.label && <Text className="text-2xl font-bold text-zinc-800">{CustomInputProps.label}</Text>}
       <TextInput
         placeholder={CustomInputProps.placeholder}        
         className='border p-2 w-full rounded-xl'
@@ -21,7 +21,8 @@ export const Input: React.FC<CustomInputProps> = ({...CustomInputProps}) => {
         value={CustomInputProps.value}   
         onChangeText={CustomInputProps.onChangeText}
         key={CustomInputProps.key}
-      />        
+      />  
+          
     </View>
   )
 }

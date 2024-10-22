@@ -3,7 +3,7 @@ import { Feather } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { Link } from 'expo-router';
 import React, { useState } from 'react';
-import { Alert, Dimensions, Keyboard, KeyboardAvoidingView, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { Alert, Dimensions, Keyboard, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import z from 'zod';
 
 const statusBarHeight = Constants.statusBarHeight
@@ -26,6 +26,8 @@ export default function Register() {
   const [mail, setMail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('')
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
   const [errors, setErrors] = useState({});
 
   const handleSubmit = () => {
@@ -41,7 +43,7 @@ export default function Register() {
 
     if (!result.success) {
       const errorMessages = result.error.errors[0].message
-      Alert.alert("Erros no formulário", errorMessages);
+      Alert.alert("Importante", errorMessages);
     } else {
       // Sucesso
       Alert.alert("Sucesso", "Formulário válido!");
@@ -57,10 +59,6 @@ export default function Register() {
           style={{ marginTop: statusBarHeight + 8, paddingTop: paddingTop }}
         >      
           <View className='flex-1 h-full items-center'>
-            {/* <View className='flex-1 h-52 flex items-center'>      
-              <Image source={require('../assets/logo.png')} className='flex-1' resizeMode='center'/>          
-            </View>  */}
-
             <Text className="flex-1 text-4xl font-bold text-zinc-800 m-8">CADASTRE-SE</Text>
           </View>
 
@@ -69,8 +67,49 @@ export default function Register() {
           <Input label='Nome' placeholder='Digite seu nome...' value={name} onChangeText={setName}/>
           <Input label='Sobrenome' placeholder='Digite seu sobrenome...' value={lastName} onChangeText={setLastName}/>
           <Input label='Email' placeholder='Digite seu email...' value={mail} onChangeText={setMail}/>
-          <Input label='Senha' placeholder='Digite sua senha...' value={password} onChangeText={setPassword} secureTextEntry={true}/>
-          <Input label='Confirmar' placeholder='Confirme sua senha...' value={confirmPassword} onChangeText={setConfirmPassword} secureTextEntry={true}/>
+
+          <View className='w-full flex mt-4 gap-2'>
+            <Text className="text-2xl font-bold text-zinc-800">Senha</Text>
+
+            <View className='justify-center'>
+              <TextInput
+                placeholder='Digite a sua senha...'       
+                className='border p-2 w-full rounded-xl'
+                secureTextEntry={!isPasswordVisible}     
+                value={password}   
+                onChangeText={setPassword}
+              />
+
+              <TouchableOpacity className='absolute right-2 p-2 bg-zinc-100' onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                <Feather
+                  name={isPasswordVisible ? 'eye-off' : 'eye'}
+                  color=''
+                  size={20}
+                /> 
+              </TouchableOpacity>    
+            </View>
+          </View>
+
+          <View className='w-full flex mt-4 gap-2'>
+            <Text className="text-2xl font-bold text-zinc-800">Confirme</Text>
+              <View className='justify-center'>
+                <TextInput
+                  placeholder='Confirme sua senha...'       
+                  className='border p-2 w-full rounded-xl'
+                  secureTextEntry={!isConfirmPasswordVisible}     
+                  value={confirmPassword}   
+                  onChangeText={setConfirmPassword}
+                />
+
+                <TouchableOpacity className='absolute right-2 p-2 bg-zinc-100' onPress={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)}>
+                  <Feather
+                    name={isConfirmPasswordVisible ? 'eye-off' : 'eye'}
+                    color=''
+                    size={20}
+                  /> 
+                </TouchableOpacity>    
+              </View>            
+          </View>
 
           <TouchableOpacity 
             onPress={handleSubmit}
@@ -84,7 +123,7 @@ export default function Register() {
                 size={20}
               />
             </View>        
-          </TouchableOpacity>     
+          </TouchableOpacity>                   
 
           <View className='flex flex-row gap-2 justify-center m-2'>
             <Text className="text-zinc-800">Já possui cadastro?</Text>
