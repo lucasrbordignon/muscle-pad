@@ -4,7 +4,7 @@ import { supabase } from '../libs/supabaseClient';
 export const signUp = async (email: string, password: string): Promise<AuthResponse> => {
   const { data, error } = await supabase.auth.signUp({
     email,
-    password,
+    password,    
   });
 
   if (error) {

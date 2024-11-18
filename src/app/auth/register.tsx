@@ -1,10 +1,11 @@
 import { Input } from '@/src/components/Input';
 import { Feather } from '@expo/vector-icons';
 import Constants from 'expo-constants';
-import { Link } from 'expo-router';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, Dimensions, Keyboard, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import z from 'zod';
+import { signUp } from '../../services/register';
 
 const statusBarHeight = Constants.statusBarHeight
 const paddingTop = Dimensions.get('window').height / 16
@@ -28,9 +29,8 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState<string>('')
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
-  const [errors, setErrors] = useState({});
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const form = {
       name,
       lastName,
@@ -45,9 +45,7 @@ export default function Register() {
       const errorMessages = result.error.errors[0].message
       Alert.alert("Importante", errorMessages);
     } else {
-      // Sucesso
-      Alert.alert("Sucesso", "Formulário válido!");
-      console.log(result.data);
+      return console.log(await signUp(mail, password))
     }
   };
 
@@ -128,9 +126,9 @@ export default function Register() {
           <View className='flex flex-row gap-2 justify-center m-2'>
             <Text className="text-zinc-800">Já possui cadastro?</Text>
             <TouchableOpacity 
-              onPress={() => {}}        
+              onPress={() => {router.replace('/auth/login')}}        
             >
-              <Link href={"/"} className="text-blue-500 underline">Entrar</Link>
+              <Text className="text-blue-500 underline">Entrar</Text>
             </TouchableOpacity>        
           </View>
         </ScrollView>
