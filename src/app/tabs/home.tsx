@@ -1,4 +1,5 @@
 import { useAuth } from '@/src/context/AuthContext';
+import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Modal, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
@@ -221,7 +222,7 @@ export default function HomeScreen(): React.JSX.Element {
 const TreinoItem: React.FC<TreinoItemProps> = ({ treino, onLongPress }) => {
   return (
     <TouchableOpacity
-      onPress={() => console.log({ treinoId: treino.id })}
+      onPress={() => router.push('/tabs/Workout')}
       onLongPress={() => onLongPress()}
       delayLongPress={1000} // 1 segundos para abrir o modal
     >

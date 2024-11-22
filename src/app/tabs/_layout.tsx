@@ -18,6 +18,22 @@ export default function TabsLayout() {
           headerTitleAlign: 'center'
         }} 
       />
+
+      <Stack.Screen 
+        name="workout" 
+        options={{ 
+          title: 'MUSCLEPAD', 
+          headerStyle: {
+            backgroundColor: '#3b82f6'
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'semibold',
+          },
+          headerTitleAlign: 'center'
+        }} 
+      />
+      {/* <Stack.Screen name="logs" options={{ title: 'Logs' }} /> */}
     </Stack>
   );
 }
