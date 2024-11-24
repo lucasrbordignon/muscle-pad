@@ -222,11 +222,16 @@ export default function HomeScreen(): React.JSX.Element {
 const TreinoItem: React.FC<TreinoItemProps> = ({ treino, onLongPress }) => {
   return (
     <TouchableOpacity
-      onPress={() => router.push('/tabs/Workout')}
+      onPress={() => {
+        router.push({
+          pathname: '/tabs/workout',
+          params: { workoutId: treino.id, workoutName: treino.description },
+        })
+      }}
       onLongPress={() => onLongPress()}
       delayLongPress={1000} // 1 segundos para abrir o modal
     >
-      <View className="border-2 border-blue-500 rounded-lg px-4 py-2">
+      <View className="bg-white rounded-lg p-4 mb-4 shadow">
         <Text className="font-semibold text-zinc-600 text-lg">{treino.description}</Text>
         <Text className="font-semibold text-zinc-600">{getDayLabel(treino.dayOfTheWeek)}</Text>
       </View>
